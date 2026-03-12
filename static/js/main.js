@@ -75,7 +75,7 @@ async function fetchProjects() {
             const techHtml = proj.technologies.map(t => `<span class="tech-badge">${t}</span>`).join('');
             container.innerHTML += `
                 <div class="project-card" data-featured="${proj.featured}">
-                    <div class="project-image"><img src="${proj.image}" alt="${proj.title}"></div>
+                    <div class="project-image"><img src="${proj.image}" alt="${proj.title}" onerror="this.src='https://via.placeholder.com/400x300?text=Project+Image'"></div>
                     <div class="project-content">
                         <h3 class="project-title">${proj.title}</h3>
                         <p class="project-description">${proj.description}</p>
@@ -90,6 +90,7 @@ async function fetchProjects() {
         });
     } catch (error) {
         console.error('Error fetching projects:', error);
+        container.innerHTML = '<p class="loader">Failed to load projects.</p>';
     }
 }
 
@@ -112,17 +113,34 @@ async function fetchBlogPosts() {
         });
     } catch (error) {
         console.error('Error fetching blog posts:', error);
+        container.innerHTML = '<p class="loader">Failed to load blog posts.</p>';
     }
 }
 
-// Fetch Fun Fact
+// Fetch a random fun fact from an external API
 async function fetchFunFact() {
+    const factDisplay = document.getElementById('funFactDisplay');
+    factDisplay.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Loading...';
+
     try {
-        const response = await fetch('/api/fun-fact');
+        // Using a free public API (no key required)
+        const response = await fetch('https://asli-fun-fact-api.herokuapp.com/');
+        if (!response.ok) throw new Error('API request failed');
         const data = await response.json();
-        document.getElementById('funFactDisplay').textContent = data.fact;
+        // The API returns a "data" field with the fact
+        factDisplay.textContent = data.data || "Did you know? Octopuses have three hearts!";
     } catch (error) {
         console.error('Error fetching fun fact:', error);
+        // Fallback to a local array if API fails
+        const fallbackFacts = [
+            "The first computer bug was a real moth found in a Harvard computer.",
+            "Python was named after Monty Python, not the snake.",
+            "A day on Venus is longer than a year on Venus.",
+            "Honey never spoils. Archaeologists found 3000-year-old honey in Egyptian tombs, still edible!",
+            "Bananas are berries, but strawberries aren't."
+        ];
+        const randomIndex = Math.floor(Math.random() * fallbackFacts.length);
+        factDisplay.textContent = fallbackFacts[randomIndex];
     }
 }
 
@@ -146,6 +164,17 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
         status.textContent = 'Please enter a valid Gmail address (must end with @gmail.com).';
         status.style.color = 'var(--error)';
         return;
+    }
+
+    // Basic fake detection (optional)
+    const fakePatterns = ['test', 'asdf', 'qwerty', '123', 'xyz', 'mailinator', 'temp'];
+    const lowerEmail = email.toLowerCase();
+    for (let pattern of fakePatterns) {
+        if (lowerEmail.includes(pattern)) {
+            status.textContent = 'Please use a real email address.';
+            status.style.color = 'var(--error)';
+            return;
+        }
     }
 
     status.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Sending...';
@@ -210,6 +239,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchVisitorCount();
     fetchProjects();
     fetchBlogPosts();
-    fetchFunFact();
+    fetchFunFact(); // Load initial fact
     setInterval(fetchVisitorCount, 60000);
 });
