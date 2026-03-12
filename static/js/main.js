@@ -126,7 +126,7 @@ async function fetchFunFact() {
     }
 }
 
-// Contact Form
+// Contact Form with Gmail validation
 document.getElementById('contactForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
@@ -139,8 +139,11 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
         status.style.color = 'var(--error)';
         return;
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        status.textContent = 'Invalid email.';
+
+    // Gmail-only validation
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!gmailRegex.test(email)) {
+        status.textContent = 'Please enter a valid Gmail address (must end with @gmail.com).';
         status.style.color = 'var(--error)';
         return;
     }
@@ -208,5 +211,5 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchProjects();
     fetchBlogPosts();
     fetchFunFact();
-    setInterval(fetchVisitorCount, 60000); // update visitor count every minute
+    setInterval(fetchVisitorCount, 60000);
 });

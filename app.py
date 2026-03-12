@@ -12,7 +12,7 @@ YOUR_NAME = "Manish Ray"
 YOUR_PHONE = "+977 9849417012"
 YOUR_CITY = "Kathmandu, Nepal"
 YOUR_EMAIL = "pro.manishray@gmail.com"
-GITHUB_USERNAME = "Manish Ray"  # Replace with your actual GitHub username
+GITHUB_USERNAME = "UnrealistManish"  # Replace with your actual GitHub username
 # =============================================================
 
 # Sample projects data
@@ -121,15 +121,12 @@ def get_github_stats():
                 "following": user_data.get("following", 0)
             })
         else:
-            # fallback mock data
             return jsonify({"public_repos": 24, "followers": 156, "following": 89})
     except:
         return jsonify({"public_repos": 24, "followers": 156, "following": 89})
 
 @app.route('/api/visitor-count')
 def visitor_count():
-    """Simple visitor counter (increments each time) – in production use a database"""
-    # For demo, we'll just return a random number
     return jsonify({"count": random.randint(1000, 5000)})
 
 @app.route('/api/contact', methods=['POST'])
@@ -142,10 +139,10 @@ def contact():
     if not name or not email or not message:
         return jsonify({'success': False, 'error': 'All fields are required.'}), 400
     
-    if '@' not in email or '.' not in email:
-        return jsonify({'success': False, 'error': 'Please enter a valid email address.'}), 400
+    # Gmail-only validation
+    if not email.endswith('@gmail.com'):
+        return jsonify({'success': False, 'error': 'Only Gmail addresses are allowed.'}), 400
     
-    # Here you would send an email (e.g., using Flask-Mail or SMTP)
     print(f"New message from {name} ({email}): {message}")
     
     return jsonify({

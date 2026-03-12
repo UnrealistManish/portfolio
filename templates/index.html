@@ -16,7 +16,6 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     
     <style>
-        /* Minimal inline style to ensure particles container is behind content */
         #particles-js {
             position: fixed;
             width: 100%;
@@ -28,22 +27,18 @@
         }
     </style>
     
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <!-- Particles Background -->
     <div id="particles-js"></div>
 
-    <!-- Theme Toggle -->
     <button class="theme-toggle" id="themeToggle">
         <i class="fas fa-moon"></i>
     </button>
 
-    <!-- Header -->
     <header>
         <div class="container header-content">
-            <div class="logo">{{ name[0] }}<span>{{ name[1] }}</span></div>
+            <div class="logo">MR</div>  <!-- Changed to MR -->
             <nav class="nav-links">
                 <a href="#home" class="active">Home</a>
                 <a href="#about">About</a>
@@ -81,7 +76,6 @@
                         </a>
                     </div>
                     
-                    <!-- Live Stats Cards -->
                     <div class="live-stats">
                         <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
                             <i class="fas fa-code-branch"></i>
@@ -102,7 +96,6 @@
                 </div>
             </div>
             
-            <!-- Scroll Indicator -->
             <div class="scroll-indicator">
                 <span>Scroll Down</span>
                 <i class="fas fa-chevron-down"></i>
@@ -124,7 +117,6 @@
                             or sharing my knowledge through blog posts and tutorials.
                         </p>
                         
-                        <!-- Tech Stack -->
                         <div class="tech-stack">
                             <h3>Technologies I work with:</h3>
                             <div class="tech-tags">
@@ -140,7 +132,6 @@
                         </div>
                     </div>
                     
-                    <!-- Personal Info Card -->
                     <div class="personal-card" data-aos="fade-left">
                         <h3><i class="fas fa-user"></i> Personal Info</h3>
                         <div class="info-item">
@@ -234,7 +225,7 @@
                                 <input type="text" id="name" placeholder="Your Name" required>
                             </div>
                             <div class="form-group">
-                                <input type="email" id="email" placeholder="Your Email" required>
+                                <input type="email" id="email" placeholder="Your Email (must be @gmail.com)" required>
                             </div>
                             <div class="form-group">
                                 <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
@@ -252,16 +243,13 @@
 
     <footer>
         <div class="container">
-            <p>© 2026 {{ name }}. All rights reserved. | Built with HTML, JS, JSON and Python</p>
+            <p>© 2026 {{ name }}. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    
-    <!-- Initialize Particles.js -->
     <script>
         particlesJS.load('particles-js', '{{ url_for('static', filename='js/particles.json') }}', function() {
             console.log('Particles.js loaded');
