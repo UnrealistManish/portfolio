@@ -34,7 +34,7 @@ PROJECTS = [
         "title": "WeatherFlow",
         "description": "Real-time weather app with interactive maps and 7-day forecast.",
         "icon": "fas fa-cloud-sun",
-        "image": "https://images.unsplash.com/photo-1504608524841-42fe6fd032b4?w=400&h=300&fit=crop",
+        "image": "https://plus.unsplash.com/premium_photo-1677744408354-2e0d1ed700a9?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "technologies": ["JavaScript", "OpenWeather API", "Chart.js", "Mapbox"],
         "github": "https://github.com/yourusername/weatherflow",
         "live": "https://weatherflow-demo.netlify.app",
