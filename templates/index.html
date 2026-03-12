@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }} · Interactive Portfolio</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <style>
+        /* Minimal inline style to ensure particles container is behind content */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">{{ name[0] }}<span>{{ name[1] }}</span></div>
+            <nav class="nav-links">
+                <a href="#home" class="active">Home</a>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#blog">Blog</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content" data-aos="fade-up">
+                    <span class="hero-greeting">👋 Hello, I'm</span>
+                    <h1 class="hero-name">{{ name }}</h1>
+                    <div class="hero-title">
+                        <span class="static-text">I'm a </span>
+                        <span class="dynamic-text" id="typingText"></span>
+                    </div>
+                    <p class="hero-description">
+                        I craft beautiful, responsive web applications with modern technologies.
+                        Passionate about creating exceptional user experiences.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn btn-primary">
+                            <i class="fas fa-briefcase"></i> View My Work
+                        </a>
+                        <a href="#contact" class="btn btn-outline">
+                            <i class="fas fa-paper-plane"></i> Let's Talk
+                        </a>
+                    </div>
+                    
+                    <!-- Live Stats Cards -->
+                    <div class="live-stats">
+                        <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                            <i class="fas fa-code-branch"></i>
+                            <span class="stat-number" id="repoCount">0</span>
+                            <span class="stat-label">Repositories</span>
+                        </div>
+                        <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                            <i class="fas fa-users"></i>
+                            <span class="stat-number" id="followerCount">0</span>
+                            <span class="stat-label">Followers</span>
+                        </div>
+                        <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                            <i class="fas fa-eye"></i>
+                            <span class="stat-number" id="visitorCount">0</span>
+                            <span class="stat-label">Visitors</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator">
+                <span>Scroll Down</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">About Me</h2>
+                <div class="about-grid">
+                    <div class="about-content" data-aos="fade-right">
+                        <p class="about-text">
+                            I'm a full-stack developer with 3+ years of experience building web applications.
+                            I specialize in React, Node.js, and Python, with a keen eye for design and user experience.
+                        </p>
+                        <p class="about-text">
+                            When I'm not coding, you'll find me exploring new technologies, contributing to open source,
+                            or sharing my knowledge through blog posts and tutorials.
+                        </p>
+                        
+                        <!-- Tech Stack -->
+                        <div class="tech-stack">
+                            <h3>Technologies I work with:</h3>
+                            <div class="tech-tags">
+                                <span>React</span>
+                                <span>Node.js</span>
+                                <span>Python</span>
+                                <span>Flask</span>
+                                <span>MongoDB</span>
+                                <span>PostgreSQL</span>
+                                <span>TypeScript</span>
+                                <span>Tailwind</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Personal Info Card -->
+                    <div class="personal-card" data-aos="fade-left">
+                        <h3><i class="fas fa-user"></i> Personal Info</h3>
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span>{{ phone }}</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>{{ city }}</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>{{ email }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Featured Projects</h2>
+                <div class="projects-filter" data-aos="fade-up">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="featured">Featured</button>
+                </div>
+                <div class="projects-grid" id="projectsContainer">
+                    <div class="loader"><i class="fas fa-spinner fa-pulse"></i> Loading amazing projects...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fun Fact Widget -->
+        <section class="fun-fact-section">
+            <div class="container">
+                <div class="fun-fact-card" data-aos="zoom-in">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Random Dev Fact</h3>
+                    <p id="funFactDisplay">Click the button for a fun fact!</p>
+                    <button class="btn btn-outline" id="newFactBtn">
+                        <i class="fas fa-sync-alt"></i> New Fact
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section id="blog" class="blog">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Latest Blog Posts</h2>
+                <div class="blog-grid" id="blogContainer">
+                    <div class="loader"><i class="fas fa-spinner fa-pulse"></i> Loading articles...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
+                <div class="contact-grid">
+                    <div class="contact-info" data-aos="fade-right">
+                        <h3>Let's work together</h3>
+                        <p>I'm always interested in hearing about new projects and opportunities.</p>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>{{ phone }}</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{ city }}</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>{{ email }}</span>
+                            </div>
+                        </div>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-dev"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form" data-aos="fade-left">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <input type="text" id="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                <i class="fas fa-paper-plane"></i> Send Message
+                            </button>
+                            <div class="contact-status" id="contactStatus"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 {{ name }}. All rights reserved. | Built with HTML, JS, JSON and Python</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    <!-- Initialize Particles.js -->
+    <script>
+        particlesJS.load('particles-js', '{{ url_for('static', filename='js/particles.json') }}', function() {
+            console.log('Particles.js loaded');
+        });
+    </script>
+</body>
+</html>
